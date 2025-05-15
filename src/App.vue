@@ -1,17 +1,15 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HolaMundo>
-    <h1>Hola!</h1>
-  </HolaMundo>
+  <ContadorView/>
 </template>
 
 <script>
-import HolaMundo from "./components/HolaMundo.vue";
+import HolaMundoView from '@/views/HolaMundoView.vue';
+import ContadorView from "@/views/ContadorView.vue";
 
 export default {
   name: "App",
   components: {
-    HolaMundo,
+    ContadorView,
   },
 };
 </script>
