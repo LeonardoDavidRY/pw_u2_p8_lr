@@ -1,8 +1,5 @@
 <template>
   <div class="container">
-    <div v-if="mostrar">
-      <h1>Estudiante Guardado</h1>
-    </div>
     <label for="id_nombre">Nombre:</label>
     <input v-model="nuevoNombre" id="id_nombre" type="text" />
     <label for="id_apellido">Apellido:</label>
@@ -15,16 +12,29 @@
     <input v-model="nuevaCarrera" id="id_carrera" type="text" />
 
     <button v-on:click="agregarEstudiante()">Agregar</button>
-
-    <ul>
-      <li
-        v-for="{ nombre, apellido, edad, correo, carrera } in lista"
-        :key="nombre"
-      >
-        Nombre: {{ nombre }} - Apellido: {{ apellido }} - Edad: {{ edad }} -
-        Correo: {{ correo }} - Carrera: {{ carrera }}
-      </li>
-    </ul>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Edad</th>
+          <th>Correo</th>
+          <th>Carrera</th>
+          <th>Boton</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="{ nombre, apellido, edad, correo, carrera } in lista" :key="nombre">
+          <td>{{ nombre }}</td>
+          <td>{{ apellido }}</td>
+          <td>{{ edad }}</td>
+          <td>{{ correo}}</td>
+          <td>{{ carrera }}</td>
+          <td><button>Ver</button></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -88,7 +98,6 @@ export default {
           carrera: "Ambiental",
         },
       ],
-      mostrar: false,
     };
   },
   methods: {
@@ -101,12 +110,6 @@ export default {
         carrera: this.nuevaCarrera,
       };
       this.lista.unshift(nuevo);
-      this.mostrar = true;
-      this.nombre = null;
-
-      setTimeout(() => {
-        this.mostrar = false;
-      }, 3000);
     },
   },
 };
@@ -137,7 +140,7 @@ input {
   padding: 10px 15px;
 }
 
-button {
+button{
   background: rgb(3, 102, 69);
   color: #fff;
   padding: 12px 20px;
@@ -147,11 +150,14 @@ button {
   cursor: pointer;
   width: 200px;
 }
-ul {
+table{
+    margin: 50px;
+}
+tr{
   list-style: none;
   margin-top: 50px;
 }
-li {
+th{
   background: #fff;
   padding: 15px;
   border-radius: 8px;
@@ -159,4 +165,13 @@ li {
   color: #333;
   font-size: 18px;
 }
+td{
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 15px;
+  color: #333;
+  font-size: 18px;
+}
+
 </style>

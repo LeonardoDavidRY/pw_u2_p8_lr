@@ -12,7 +12,7 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
 .titulo {
   color: rgb(31, 7, 77);
 }
