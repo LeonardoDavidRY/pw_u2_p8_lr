@@ -1,8 +1,5 @@
 <template>
   <div class="container">
-    <div v-if="mostrar">
-      <h1>Estudiante Guardado</h1>
-    </div>
     <label for="id_nombre">Nombre:</label>
     <input v-model="nuevoNombre" id="id_nombre" type="text" />
     <label for="id_apellido">Apellido:</label>
@@ -14,15 +11,11 @@
     <label for="id_carrera">Carrera:</label>
     <input v-model="nuevaCarrera" id="id_carrera" type="text" />
 
-    <button v-on:click="agregarEstudiante()">Agregar</button>
-
+    <button v-on:click="agregarEstudiante()">Agregar Estudiante</button>
+    {{ nuevoNombre }}
     <ul>
-      <li
-        v-for="{ nombre, apellido, edad, correo, carrera } in lista"
-        :key="nombre"
-      >
-        Nombre: {{ nombre }} - Apellido: {{ apellido }} - Edad: {{ edad }} -
-        Correo: {{ correo }} - Carrera: {{ carrera }}
+      <li v-for="{ nombre, apellido, edad, correo, carrera } in lista" :key="nombre">
+        Nombre: {{ nombre }} - Apellido: {{ apellido }} - Edad: {{ edad }} - Correo: {{ correo }} - Carrera: {{ carrera }}
       </li>
     </ul>
   </div>
@@ -88,7 +81,6 @@ export default {
           carrera: "Ambiental",
         },
       ],
-      mostrar: false,
     };
   },
   methods: {
@@ -101,62 +93,11 @@ export default {
         carrera: this.nuevaCarrera,
       };
       this.lista.unshift(nuevo);
-      this.mostrar = true;
-      this.nombre = null;
-
-      setTimeout(() => {
-        this.mostrar = false;
-      }, 3000);
     },
   },
 };
 </script>
 
-<style scoped>
-.container {
-  background: rgb(128, 216, 179);
-  border: 12px solid;
-  border-radius: 12px;
-  max-width: 1000px;
-  margin: 50px auto;
-  padding: 30px;
-}
+<style>
 
-label {
-  display: block;
-  color: black;
-  text-align: left;
-}
-input {
-  background: rgb(216, 235, 228);
-  color: rgb(1, 8, 5);
-  width: 97%;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  border: 1px solid rgb(0, 217, 255);
-  padding: 10px 15px;
-}
-
-button {
-  background: rgb(3, 102, 69);
-  color: #fff;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 8px;
-  font-size: 20px;
-  cursor: pointer;
-  width: 200px;
-}
-ul {
-  list-style: none;
-  margin-top: 50px;
-}
-li {
-  background: #fff;
-  padding: 15px;
-  border-radius: 8px;
-  margin-top: 15px;
-  color: #333;
-  font-size: 18px;
-}
 </style>
