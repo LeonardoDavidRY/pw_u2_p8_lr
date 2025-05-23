@@ -1,37 +1,56 @@
 <template>
   <div class="container">
-    <img
-      src="https://yesno.wtf/assets/no/19-2062f4c91189b1f88a9e809c10a5b0f0.gif
- "
-      alt="No se pudo cargar la imagen"
-    />
+    <img v-if="imagen" :src="imagen" alt="No se pudo cargar la imagen" />
     <div class="container-2"></div>
 
     <div class="pregunta-container">
       <input v-model="pregunta" type="text" placeholder="Hazme una pregunta" />
       <p>Recuerda terminar con signo de pregunta(?)</p>
-      <h2>{{pregunta}}</h2>
-      <h1>{{respuesta}}</h1>
+      <div v-if="esValida">
+        <h2>{{ pregunta }}</h2>
+        <h1>{{ respuesta }}</h1>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { watch } from 'vue';
-export default {
-    data(){
-        return{
-            pregunta:null,
-            respuesta:null,
-        };
-    },
-    watch:{
-       pregunta(Value, oldValue){
-        console.log("Valor actual:" +Value);
-        console.log("Valor anterior:" +oldValue);
+import { watch } from "vue";
+import { consultarRespuestaFachada } from "@/clients/YesNoClient.js";
 
-       },
+export default {
+  data() {
+    return {
+      pregunta: null,
+      respuesta: null,
+      imagen: null,
+      esValida: false,
+    };
+  },
+  watch: {
+    pregunta(Value, oldValue) {
+      this.esValida = false;
+      if (Value.includes("?")) {
+        this.esValida = true;
+        console.log("Valor actual:" + Value);
+        console.log("Valor anterior:" + oldValue);
+        //aqui deberia consultar el api
+        this.consumirAPI();
+      }
     },
+  },
+  methods: {
+    async consumirAPI() {
+      this.respuesta = "Pensando...";
+      const resp = await consultarRespuestaFachada();
+      console.log(resp);
+      console.log(resp.image);
+      console.log(resp.answer);
+      console.log(resp.forced);
+      this.respuesta = resp.answer;
+      this.imagen = resp.image;
+    },
+  },
 };
 </script>
 
@@ -49,29 +68,28 @@ img {
 .container-2 {
   background-color: rgba(0, 0, 0, 0.5);
 }
-.pregunta-container{
-    position: relative;
-
+.pregunta-container {
+  position: relative;
 }
-input{
-    width: 250px;
-    padding: 10px 15px;
-    border-radius: 5px;
-    border: none;
-    margin-top: 70px;
+input {
+  width: 250px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  margin-top: 70px;
 }
-input:focus{
-    outline: none;
+input:focus {
+  outline: none;
 }
-p{
-    color: white;
-    font-size: 25px;
+p {
+  color: white;
+  font-size: 25px;
 }
-h1,h2{
-    color:white;
-
+h1,
+h2 {
+  color: white;
 }
-h2{
-    margin-top: 160px;
+h2 {
+  margin-top: 160px;
 }
 </style>
