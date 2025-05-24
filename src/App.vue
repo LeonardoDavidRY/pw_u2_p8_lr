@@ -1,5 +1,5 @@
 <template>
-  <PreguntaView />
+  <ConsejoView />
 </template>
 
 <script>
@@ -8,7 +8,8 @@ import ContadorView from "@/views/ContadorView.vue";
 import EstudianteView from "@/views/EstudianteView.vue";
 import EstudianteTablaView from "@/views/EstudianteTablaView.vue";
 import AsignaturaTablaView from "@/views/AsignaturaTablaView.vue";
-import PreguntaView from "@/views/PreguntaView.vue"
+import PreguntaView from "@/views/PreguntaView.vue";
+import ConsejoView from "@/views/ConsejoView.vue";
 export default {
   name: "App",
   components: {
@@ -18,6 +19,7 @@ export default {
     EstudianteTablaView,
     AsignaturaTablaView,
     PreguntaView,
+    ConsejoView,
   },
 };
 </script>

@@ -1,10 +1,9 @@
 <template>
   <div class="container">
     <div class="consejo-container">
-      <input v-model="trigger" type="text" placeholder="Escribe algo y presiona Enter" @keyup.enter="onInput" />
       <button @click="onInput">Obtener consejo</button>
       <div v-if="consejo">
-        <h2>Consejo:</h2>
+        <h2>Consejo del día:</h2>
         <p>{{ consejo }}</p>
       </div>
     </div>
@@ -12,24 +11,24 @@
 </template>
 
 <script>
-import { obtenerConsejoFachada } from '../clients/Consejo.js';
+import { obtenerConsejoFachada } from "../clients/Consejo.js";
 
 export default {
   data() {
     return {
-      trigger: '',
-      consejo: '',
+      trigger: "",
+      consejo: "",
     };
   },
   watch: {
     trigger(newVal, oldVal) {
       // Si quieres que se actualice automáticamente al cambiar el input, descomenta la siguiente línea:
-      this.obtenerConsejo();
+      // this.obtenerConsejo();
     },
   },
   methods: {
     async obtenerConsejo() {
-      this.consejo = 'Pensando...';
+      this.consejo = "Pensando...";
       const data = await obtenerConsejoFachada();
       this.consejo = data.slip.advice;
     },
@@ -69,7 +68,8 @@ button {
   color: white;
   cursor: pointer;
 }
-h2, p {
+h2,
+p {
   color: white;
 }
 </style>
